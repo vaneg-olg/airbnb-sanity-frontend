@@ -9,10 +9,6 @@ const Map = ({ location }) => {
 
   console.log("location.lat", location.lat)
   console.log("location.lat", location.lat)
-  const containerStyle = {
-    width: "100%",
-    height: "400px",
-  }
 
   console.log(location.lat)
   const center = {
@@ -37,7 +33,7 @@ const Map = ({ location }) => {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerClassName="map-container"
       center={center}
       zoom={10}
       onLoad={onLoad}

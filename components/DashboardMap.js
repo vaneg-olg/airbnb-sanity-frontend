@@ -9,10 +9,6 @@ const DashboardMap = ({ properties }) => {
 
   console.log(properties[0].location?.lat)
   console.log(properties[0].location?.lat)
-  const containerStyle = {
-    width: "100%",
-    height: "100vh",
-  }
 
   const center = {
     lat: properties[0].location?.lat,
@@ -36,7 +32,7 @@ const DashboardMap = ({ properties }) => {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerClassName="map-container-full"
       center={center}
       zoom={10}
       onLoad={onLoad}
