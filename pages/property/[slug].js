@@ -4,6 +4,7 @@ import Image from "../../components/Image"
 import Review from "../../components/Review"
 import Map from "../../components/Map"
 import Link from "next/link"
+import { useState } from "react"
 
 const Property = ({
   title,
@@ -16,9 +17,18 @@ const Property = ({
   bedrooms,
   description,
   host,
-  reviews,
+  initialReviews,
 }) => {
+  const [reviews, setReviews] = useState(initialReviews)
   const reviewAmount = reviews.length
+
+  const handleDeleteReview = async (reviewKey) => {
+    // Remove the review from the local state
+    setReviews(reviews.filter((review) => review._key !== reviewKey))
+    
+    // In a real app, you would also delete it from Sanity backend
+    // For now, this is a client-side deletion
+  }
 
   console.log(images)
   return (
@@ -92,7 +102,13 @@ const Property = ({
         {reviewAmount} review{isMultiple(reviewAmount)}
       </h2>
       {reviewAmount > 0 &&
-        reviews.map((review) => <Review key={review._key} review={review} />)}
+        reviews.map((review) => (
+          <Review
+            key={review._key}
+            review={review}
+            onDelete={handleDeleteReview}
+          />
+        ))}
 
       <hr />
 
@@ -152,7 +168,7 @@ export const getServerSideProps = async (pageContext) => {
         bedrooms: property.bedrooms,
         description: property.description,
         host: property.host,
-        reviews: property.reviews,
+        initialReviews: property.reviews,
       },
     }
   }
