@@ -2,6 +2,7 @@ import { sanityClient, urlFor } from "../sanity"
 import Link from "next/link"
 import { isMultiple } from "../utils"
 import DashboardMap from "../components/DashboardMap"
+import BookmarkButton from "../components/BookmarkButton"
 
 const Home = ({ properties }) => {
   console.log(properties)
@@ -10,22 +11,30 @@ const Home = ({ properties }) => {
       {properties && (
         <div className="main">
           <div className="feed-container">
-            <h1>Places to stay near you</h1>
+            <div className="feed-header">
+              <h1>Places to stay near you</h1>
+              <Link href="/bookmarks">
+                <a className="bookmarks-link">My Bookmarks</a>
+              </Link>
+            </div>
             <div className="feed">
               {properties.map((property) => (
-                <Link href={`property/${property.slug.current}`}>
-                  <div key={property._id} className="card">
-                    <img src={urlFor(property.mainImage)} />
-                    <p>
-                      {property.reviews.length} review
-                      {isMultiple(property.reviews.length)}
-                    </p>
-                    <h3>{property.title}</h3>
-                    <h3>
-                      <b>£{property.pricePerNight}/per Night</b>
-                    </h3>
-                  </div>
-                </Link>
+                <div key={property._id} className="card-wrapper">
+                  <Link href={`property/${property.slug.current}`}>
+                    <div className="card">
+                      <img src={urlFor(property.mainImage)} />
+                      <p>
+                        {property.reviews.length} review
+                        {isMultiple(property.reviews.length)}
+                      </p>
+                      <h3>{property.title}</h3>
+                      <h3>
+                        <b>£{property.pricePerNight}/per Night</b>
+                      </h3>
+                    </div>
+                  </Link>
+                  <BookmarkButton propertyId={property._id} propertyData={property} />
+                </div>
               ))}
             </div>
           </div>

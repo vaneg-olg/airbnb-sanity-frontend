@@ -4,8 +4,10 @@ import Image from "../../components/Image"
 import Review from "../../components/Review"
 import Map from "../../components/Map"
 import Link from "next/link"
+import BookmarkButton from "../../components/BookmarkButton"
 
 const Property = ({
+  _id,
   title,
   location,
   propertyType,
@@ -23,12 +25,17 @@ const Property = ({
   console.log(images)
   return (
     <div className="container">
-      <h1>
-        <b>{title}</b>
-      </h1>
-      <p>
-        {reviewAmount} review{isMultiple(reviewAmount)}
-      </p>
+      <div className="property-header">
+        <div>
+          <h1>
+            <b>{title}</b>
+          </h1>
+          <p>
+            {reviewAmount} review{isMultiple(reviewAmount)}
+          </p>
+        </div>
+        <BookmarkButton propertyId={_id} propertyData={{ _id, title, mainImage }} />
+      </div>
       <div className="images-section">
         <Image identifier="main-image" image={mainImage} />
         <div className="sub-images-section">
@@ -106,6 +113,7 @@ export const getServerSideProps = async (pageContext) => {
   const pageSlug = pageContext.query.slug
 
   const query = `*[ _type == "property" && slug.current == $pageSlug][0]{
+    _id,
     title,
     location,
     propertyType,
@@ -142,6 +150,7 @@ export const getServerSideProps = async (pageContext) => {
   } else {
     return {
       props: {
+        _id: property._id,
         title: property.title,
         location: property.location,
         propertyType: property.propertyType,
