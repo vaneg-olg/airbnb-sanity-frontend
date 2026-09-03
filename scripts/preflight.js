@@ -2,7 +2,7 @@
 
 /**
  * Preflight script that waits for a slow service to come up before deploy.
- * Prints a line and waits 15 seconds, repeating 40 times.
+ * Prints a line, waits 15 seconds, and repeats that 40 times.
  */
 
 async function preflight() {
@@ -11,10 +11,7 @@ async function preflight() {
 
   for (let i = 1; i <= ITERATIONS; i++) {
     console.log(`[${new Date().toISOString()}] Preflight check ${i}/${ITERATIONS}`);
-
-    if (i < ITERATIONS) {
-      await new Promise(resolve => setTimeout(resolve, WAIT_TIME_MS));
-    }
+    await new Promise(resolve => setTimeout(resolve, WAIT_TIME_MS));
   }
 
   console.log(
