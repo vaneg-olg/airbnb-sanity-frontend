@@ -1,7 +1,15 @@
+import Link from 'next/link'
+import styles from '../styles/NavBar.module.css'
+
 const NavBar = () => {
   return (
-    <div className="nav">
-      <div className="logo"></div>
+    <div className={styles.nav}>
+      <Link href="/">
+        <div className={styles.logo}></div>
+      </Link>
+      <Link href="/bookmarks">
+        <button className={styles.bookmarksLink}>♥ My Bookmarks</button>
+      </Link>
     </div>
   )
 }

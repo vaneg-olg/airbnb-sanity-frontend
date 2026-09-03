@@ -3,7 +3,9 @@ import { isMultiple } from "../../utils"
 import Image from "../../components/Image"
 import Review from "../../components/Review"
 import Map from "../../components/Map"
+import BookmarkButton from "../../components/BookmarkButton"
 import Link from "next/link"
+import styles from "../../styles/PropertyDetail.module.css"
 
 const Property = ({
   title,
@@ -17,29 +19,38 @@ const Property = ({
   description,
   host,
   reviews,
+  property,
 }) => {
   const reviewAmount = reviews.length
 
   console.log(images)
   return (
-    <div className="container">
-      <h1>
-        <b>{title}</b>
-      </h1>
-      <p>
-        {reviewAmount} review{isMultiple(reviewAmount)}
-      </p>
-      <div className="images-section">
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div>
+          <h1>
+            <b>{title}</b>
+          </h1>
+          <p className={styles.reviewSummary}>
+            {reviewAmount} review{isMultiple(reviewAmount)}
+          </p>
+        </div>
+        <div className={styles.headerActions}>
+          <BookmarkButton property={property} showLabel={true} />
+        </div>
+      </div>
+
+      <div className={styles.imagesSection}>
         <Image identifier="main-image" image={mainImage} />
-        <div className="sub-images-section">
+        <div className={styles.subImagesSection}>
           {images.map(({ _key, asset }, image) => (
             <Image key={_key} identifier="image" image={asset} />
           ))}
         </div>
       </div>
 
-      <div className="section">
-        <div className="information">
+      <div className={styles.section}>
+        <div className={styles.information}>
           <h2>
             <b>
               {propertyType} hosted by {host?.name}
@@ -71,13 +82,13 @@ const Property = ({
             parties or smoking.
           </p>
         </div>
-        <div className="price-box">
+        <div className={styles.priceBox}>
           <h2>£{pricePerNight}</h2>
           <h4>
             {reviewAmount} review{isMultiple(reviewAmount)}
           </h4>
           <Link href="/">
-            <div className="button">Change Dates</div>
+            <div className={styles.button}>Change Dates</div>
           </Link>
         </div>
       </div>
@@ -106,7 +117,9 @@ export const getServerSideProps = async (pageContext) => {
   const pageSlug = pageContext.query.slug
 
   const query = `*[ _type == "property" && slug.current == $pageSlug][0]{
+    _id,
     title,
+    slug,
     location,
     propertyType,
     mainImage,
@@ -153,6 +166,7 @@ export const getServerSideProps = async (pageContext) => {
         description: property.description,
         host: property.host,
         reviews: property.reviews,
+        property: property,
       },
     }
   }

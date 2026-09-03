@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.reviewSummary {
+  margin: 5px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.section {
+  margin: 20px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.information {
+  width: 60%;
+}
+
+.priceBox {
+  width: 35%;
+  height: 250px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 12%) 0 6px 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  width: 90%;
+  padding: 15px;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  background: linear-gradient(135deg, rgb(255, 56, 92) 20%, rgb(189, 30, 89));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+}
+
+.imagesSection {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 340px;
+}
+
+.mainImage {
+  width: 50%;
+  overflow: hidden;
+  max-height: 540px;
+}
+
+.mainImage img {
+  width: 100%;
+}
+
+.subImagesSection {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 20px 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .section {
+    flex-direction: column;
+  }
+
+  .information,
+  .priceBox {
+    width: 100%;
+  }
+
+  .imagesSection {
+    flex-direction: column;
+  }
+
+  .subImagesSection {
+    width: 100%;
+  }
+}
